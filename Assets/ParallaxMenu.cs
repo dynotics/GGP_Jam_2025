@@ -20,6 +20,11 @@ public class ParallaxMenu : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Camera.main == null)
+        {
+            return;
+        }
+
         Vector3 offset = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         Vector3 targetPosition = startPosition + (offset * offsetMultiplier);
 
