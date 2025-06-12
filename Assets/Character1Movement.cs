@@ -13,6 +13,8 @@ public class Character1Movement : MonoBehaviour
     private int curTarget = 0;
     private bool turning = false;
     public bool isSeated = false;
+    public bool waitReception = false;
+    public bool goToSeat;
 
     private void Start()
     {
@@ -50,6 +52,12 @@ public class Character1Movement : MonoBehaviour
                         turning = true;
                         StartCoroutine(TurnLeft());
                     }
+
+                    else if (curTarget == 2)
+                    {
+                        waitReception = true;
+                    }
+
                     else
                     {
                         curTarget++;
@@ -59,6 +67,16 @@ public class Character1Movement : MonoBehaviour
                     }    
                 }
             }
+        }
+    }
+
+    public void BeSeated()
+    {
+        if (waitReception)
+        {
+            waitReception = false;
+            goToSeat = true;
+            curTarget = 3;
         }
     }
 
