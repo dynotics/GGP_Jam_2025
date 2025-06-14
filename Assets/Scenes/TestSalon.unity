@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00f3d6f69e5d9e40a5920ad75ee0c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  sprintSpeed: 10
+  walkSpeed: 10
+  sprintSpeed: 20
   rotSmoothTime: 0.2
   cam: {fileID: 1951685372}
   isFrozen: 0
