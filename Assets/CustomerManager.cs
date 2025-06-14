@@ -20,7 +20,7 @@ public class CustomerManager : MonoBehaviour
     public GameObject customerPrefab;
 
     List<CustomerObject> currentCustomers;
-    List<CustomerObject> currentWaitingCustomers;
+    [HideInInspector] public List<CustomerObject> currentWaitingCustomers;
 
     [Space(10)]
 
@@ -63,14 +63,17 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Debug Salon
-        if (Input.GetKeyDown(KeyCode.T))
+        
+        /*
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SeatCustomer();
         }
+        
         if (Input.GetKeyDown(KeyCode.B))
         {
             CreateCustomer();
-        }
+        }*/
     }
 
     public IEnumerator SpawnCustomers(int x)
@@ -112,17 +115,31 @@ public class CustomerManager : MonoBehaviour
         return null;
     }
 
-    public void SeatCustomer()
+    public bool SeatCustomer()
     {
         if (currentWaitingCustomers.Count != 0 && RequestSeat(currentWaitingCustomers[0]))
         {
             currentWaitingCustomers.RemoveAt(0);
+            return true;
         }
         else
         {
             Debug.Log("No Available seats");
+            return false;
             //If there are no available seats
         }
+    }
+
+    public bool AnyEmptySeats()
+    {
+        for (int i = 0; i < currentSeatedCustomers.Length; i++)
+        {
+            if (currentSeatedCustomers[i] == null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool RequestSeat(CustomerObject customer)
