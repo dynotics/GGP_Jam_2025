@@ -16,6 +16,8 @@ public class UIFacing : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (defaultCam == null) return;
+
         transform.position = transform.parent.position + offset;
 
         Vector3 dirToCam = defaultCam.transform.position - transform.position;

@@ -18,7 +18,8 @@ public enum HairStyle
 {
     A,
     B,
-    C
+    C,
+    D
 }
 
 
@@ -29,6 +30,8 @@ public class CustomerObject : MonoBehaviour
     public CustomerState currentState;
 
     public HairStyle preferredHairStyle;
+
+    public GameObject preferredHairObj;
 
     public Image patienceBar;
     public GameObject patienceBarParent;
@@ -158,6 +161,14 @@ public class CustomerObject : MonoBehaviour
             hairCycler.trigger = assignedStation.trigger; // assign this station's specific trigger zone to the client's specific hairCycler.
                                                           // allows for multiple stations with multiple customers
             hairCycler.scissorsRect = GameObject.FindWithTag("Scissors").GetComponent<RectTransform>();
+            hairCycler.curCustomer = this;
+
+            if (hairCycler.hairStyles.Count > 0)
+            {
+                int randIndex = Random.Range(0, hairCycler.hairStyles.Count); // randomizes which hairstyle is the favorite
+                preferredHairObj = hairCycler.hairStyles[randIndex];
+                Debug.Log("Customer prefers the haircut labeled: " + preferredHairObj.name);
+            }
         }
     }
 

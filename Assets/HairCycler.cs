@@ -6,7 +6,8 @@ public class HairCycler : MonoBehaviour
 {
     public List<GameObject> hairStyles;           
     public RectTransform scissorsRect;            
-    public RectTransform trigger;            
+    public RectTransform trigger;
+    public CustomerObject curCustomer;
 
     private int currentIndex = 0;
     private bool canSwitch = true;
@@ -28,7 +29,7 @@ public class HairCycler : MonoBehaviour
         if (currentIndex >= 0)
             hairStyles[currentIndex].SetActive(false);
 
-        currentIndex = (currentIndex + 1) % hairStyles.Count;
+        currentIndex = (currentIndex + 1) % hairStyles.Count; // always moves fwd by 1, but once reaches 4 no remainder, so loops
         hairStyles[currentIndex].SetActive(true);
     }
 
@@ -38,6 +39,17 @@ public class HairCycler : MonoBehaviour
             return;
 
         CycleHair();
+
+        if (curCustomer != null && curCustomer.currentState == CustomerState.Seated)
+        {
+            GameObject curHair = hairStyles[currentIndex];
+
+            if (curCustomer.preferredHairObj == curHair)
+            {
+                curCustomer.FinishSalon(); // leaves if satisifed!
+            }
+        }
+        
         StartCoroutine(SwitchCooldown());
     }
 
