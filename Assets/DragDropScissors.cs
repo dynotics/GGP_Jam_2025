@@ -47,7 +47,6 @@ public class DragDropScissors : MonoBehaviour, IPointerDownHandler, IBeginDragHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
     }
 
 }
