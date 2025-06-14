@@ -15,4 +15,5 @@ public class CustomerStat : ScriptableObject
 
     public string[] finishText;
     public string[] failText;
+    public List<GameObject> hairStyles;
 }
