@@ -1252,11 +1252,6 @@ MonoBehaviour:
   seatingLocations:
   - {fileID: 859956760}
   customerPrefab: {fileID: 3019558636148651322, guid: 7a752042c7fda834daf66441180e672a, type: 3}
-<<<<<<< HEAD
-  timeBetweenBurst: 0
-  timeDecay: 0
---- !u!114 &859956760 stripped
-=======
   currentWaitingCustomers: []
   timeBetweenBurst: 10
   timeDecay: 0.1
@@ -1411,7 +1406,6 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &859956760
->>>>>>> 4f4810f1ea9062ddf63011e16d915551469d19d5
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4799045029356960950, guid: 65a18113c0309f947a1a44bef69344cd, type: 3}
   m_PrefabInstance: {fileID: 6314443531728313269}
