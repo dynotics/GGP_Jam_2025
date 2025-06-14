@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
-
+    public GameManager gm;
     public Transform customerSpawnLocation;
 
     public Transform[] waitingMovementLocations;

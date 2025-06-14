@@ -206,6 +206,7 @@ MonoBehaviour:
   - {fileID: 8298148734572292160}
   scissorsRect: {fileID: 0}
   trigger: {fileID: 0}
+  curCustomer: {fileID: 0}
 --- !u!1 &3019558636148651322
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +351,7 @@ MonoBehaviour:
   stat: {fileID: 11400000, guid: c1b18c683db88f8479a9ab51953f4e99, type: 2}
   currentState: 0
   preferredHairStyle: 0
+  preferredHairObj: {fileID: 0}
   patienceBar: {fileID: 3849151605353863517}
   patienceBarParent: {fileID: 1720028022988930853}
   seatIndex: 0
@@ -537,7 +539,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E to interact!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 870b30f4dce4d45498c4d0de1954f9ac, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -601,7 +603,7 @@ MonoBehaviour:
   m_margin: {x: -1.1251603, y: 0, z: -1.823418, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &517238250423904475

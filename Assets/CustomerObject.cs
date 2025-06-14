@@ -128,6 +128,8 @@ public class CustomerObject : MonoBehaviour
                 if (waitTimer < 0)
                 {
                     currentState = CustomerState.Leaving;
+                    manager.RemoveSeat(this);
+                    patienceBarParent.SetActive(false);
                 }
                 break;
             case CustomerState.Leaving:
@@ -178,6 +180,8 @@ public class CustomerObject : MonoBehaviour
         manager.RemoveSeat(this);
         waitTimer = stat.finishWaitingTime;
         currentState = CustomerState.Finished;
+
+        manager.gm.score++;
 
         patienceBarParent.SetActive(false);
     }
