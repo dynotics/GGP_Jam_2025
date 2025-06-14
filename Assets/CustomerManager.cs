@@ -26,6 +26,9 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         currentSeatedCustomers = new CustomerObject[seatingLocations.Length];
+
+        currentCustomers = new List<CustomerObject>();
+        currentWaitingCustomers = new List<CustomerObject>();
     }
 
     // Update is called once per frame
@@ -44,11 +47,13 @@ public class CustomerManager : MonoBehaviour
 
     public void CreateCustomer()
     {
-        CustomerObject customer = Instantiate(customerPrefab, customerSpawnLocation).GetComponent<CustomerObject>();
+        CustomerObject customer = Instantiate(customerPrefab, customerSpawnLocation.position, Quaternion.identity).GetComponent<CustomerObject>();
 
         currentCustomers.Add(customer);
 
         customer.CreateCustomer(this);
+
+        Debug.Log("Create Customer");
     }
 
     public void AddWaitingCustomer(CustomerObject customer)
@@ -62,7 +67,7 @@ public class CustomerManager : MonoBehaviour
         {
             if (customer == currentWaitingCustomers[i])
             {
-                return waitingLocations[Mathf.Min(i, waitingLocations.Length)];
+                return waitingLocations[Mathf.Min(i, waitingLocations.Length-1)];
             }
         }
 
@@ -71,12 +76,13 @@ public class CustomerManager : MonoBehaviour
 
     public void SeatCustomer()
     {
-        if (RequestSeat(currentWaitingCustomers[0]))
+        if (currentWaitingCustomers.Count != 0 && RequestSeat(currentWaitingCustomers[0]))
         {
             currentWaitingCustomers.RemoveAt(0);
         }
         else
         {
+            Debug.Log("No Available seats");
             //If there are no available seats
         }
     }

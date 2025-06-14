@@ -65,6 +65,8 @@ public class CustomerObject : MonoBehaviour
                 {
                     manager.AddWaitingCustomer(this);
                     currentState = CustomerState.WaitReception;
+
+                    targetIndex = 0;
                 }
                 break;
             case CustomerState.WaitReception:
@@ -91,7 +93,7 @@ public class CustomerObject : MonoBehaviour
                 }
 
                 //Debug Salon
-                if (Input.GetKeyDown(KeyCode.T))
+                if (Input.GetKeyDown(KeyCode.V))
                 {
                     FinishSalon();
                 }
@@ -105,8 +107,9 @@ public class CustomerObject : MonoBehaviour
                 }
                 break;
             case CustomerState.Leaving:
-                if (Walking(manager.waitingMovementLocations))
+                if (Walking(manager.leavingMovementLocations))
                 {
+                    targetIndex = 0;
                     DespawnCustomer();
                 }
                 break;
@@ -120,12 +123,14 @@ public class CustomerObject : MonoBehaviour
 
     public void SeatCustomer(int index)
     {
+        targetIndex = 0;
         seatIndex = index;
         currentState = CustomerState.WalkingSeat;
     }
 
     public void FinishSalon()
     {
+        targetIndex = 0;
         manager.RemoveSeat(this);
         waitTimer = stat.finishWaitingTime;
         currentState = CustomerState.Finished;
@@ -139,8 +144,12 @@ public class CustomerObject : MonoBehaviour
 
     public bool SimpleWalk(Transform pos)
     {
-        Vector3 dif = transform.position - pos.position;
-        controller.Move(dif.normalized * stat.speed * Time.deltaTime);
+        Vector3 dif = pos.position - transform.position;
+
+        if (dif.magnitude > stat.minDistFromTarget)
+        {
+            controller.Move(dif.normalized * stat.speed * Time.deltaTime);
+        }
         return dif.magnitude <= stat.minDistFromTarget;
     }
 
@@ -150,7 +159,7 @@ public class CustomerObject : MonoBehaviour
         {
             return true;
         }
-        Vector3 dif = transform.position - pos[targetIndex].position;
+        Vector3 dif = pos[targetIndex].position - transform.position;
 
         if (dif.magnitude <= stat.minDistFromTarget)
         {

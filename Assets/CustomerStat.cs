@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Custom/CustomerStat")]
 public class CustomerStat : ScriptableObject
 {
     public float speed;
