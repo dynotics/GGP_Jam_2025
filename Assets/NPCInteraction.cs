@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using TMPro;
+
 public class NPCInteraction : MonoBehaviour
 {
-    public Character1Movement characterScript;
+    public TMP_Text indicatorText;
+
+    public CustomerManager manager;
     public GameObject interactPromptUI;
-    private bool isInteractable = false;
+
+    bool isInteractable;
 
     private void Start()
     {
-        interactPromptUI.SetActive(false);
+        //interactPromptUI.SetActive(false);
     }
 
     private void Update()
     {
-        if (isInteractable && Input.GetKeyDown(KeyCode.E))
+        indicatorText.gameObject.SetActive(manager.currentWaitingCustomers.Count > 0 && isInteractable);
+        indicatorText.text = manager.AnyEmptySeats() ? "Press E to Seat a customer!" : "All salons are full";
+
+        if (Input.GetKeyDown(KeyCode.E) && isInteractable)
         {
-            characterScript.BeSeated();
-            interactPromptUI.SetActive(false);
-            isInteractable = false;
+            manager.SeatCustomer();
         }
     }
 
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (characterScript != null && characterScript.waitReception)
-            {
-                isInteractable = true;
-                interactPromptUI.SetActive(true);
-            }
+            isInteractable = true;
         }
     }
 
@@ -40,7 +43,6 @@ public class NPCInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = false;
-            interactPromptUI.SetActive(false);
         }
     }
 }
