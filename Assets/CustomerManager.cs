@@ -10,7 +10,7 @@ public class CustomerManager : MonoBehaviour
     public Transform[] waitingMovementLocations;
     public Transform[] leavingMovementLocations;
 
-    public GameObject receptionGameObject;
+    public Transform[] waitingLocations;
     public Transform[] seatingLocations;
 
     CustomerObject[] currentSeatedCustomers;
@@ -31,7 +31,11 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug Salon
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SeatCustomer();
+        }
     }
 
     public void CreateCustomer()
@@ -43,15 +47,33 @@ public class CustomerManager : MonoBehaviour
         customer.CreateCustomer(this);
     }
 
+    public void AddWaitingCustomer(CustomerObject customer)
+    {
+        currentWaitingCustomers.Add(customer);
+    }
+
+    public Transform WaitingLineSpot(CustomerObject customer)
+    {
+        for (int i = 0; i < currentWaitingCustomers.Count; i++)
+        {
+            if (customer == currentWaitingCustomers[i])
+            {
+                return waitingLocations[Mathf.Min(i, waitingLocations.Length)];
+            }
+        }
+
+        return null;
+    }
+
     public void SeatCustomer()
     {
         if (RequestSeat(currentWaitingCustomers[0]))
         {
-
+            currentWaitingCustomers.RemoveAt(0);
         }
         else
         {
-
+            //If there are no available seats
         }
     }
 

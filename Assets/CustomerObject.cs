@@ -13,11 +13,20 @@ public enum CustomerState
     Leaving
 }
 
+public enum HairStyle
+{
+    A,
+    B,
+    C
+}
+
 public class CustomerObject : MonoBehaviour
 {
     public CustomerStat stat;
 
     public CustomerState currentState;
+
+    public HairStyle preferredHairStyle;
 
     Vector3 target;
     int targetIndex;
@@ -52,11 +61,20 @@ public class CustomerObject : MonoBehaviour
         switch (currentState)
         {
             case CustomerState.WalkingReception:
-                Walking(manager.waitingMovementLocations);
+                if (Walking(manager.waitingMovementLocations))
+                {
+                    manager.AddWaitingCustomer(this);
+                    currentState = CustomerState.WaitReception;
+                }
                 break;
             case CustomerState.WaitReception:
                 patienceTimer -= Time.deltaTime;
-                //SimpleWalk();
+                if (patienceTimer < 0)
+                {
+                    LostAllPatience();
+                }
+
+                SimpleWalk(manager.WaitingLineSpot(this));
                 break;
             case CustomerState.WalkingSeat:
                 if (SimpleWalk(manager.seatingLocations[seatIndex]))
@@ -67,6 +85,17 @@ public class CustomerObject : MonoBehaviour
                 break;
             case CustomerState.Seated:
                 patienceTimer -= Time.deltaTime;
+                if (patienceTimer < 0)
+                {
+                    LostAllPatience();
+                }
+
+                //Debug Salon
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    FinishSalon();
+                }
+
                 break;
             case CustomerState.Finished:
                 waitTimer -= Time.deltaTime;
@@ -76,7 +105,10 @@ public class CustomerObject : MonoBehaviour
                 }
                 break;
             case CustomerState.Leaving:
-                Walking(manager.waitingMovementLocations);
+                if (Walking(manager.waitingMovementLocations))
+                {
+                    DespawnCustomer();
+                }
                 break;
         }
     }
