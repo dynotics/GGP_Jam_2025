@@ -11,13 +11,11 @@ public class ParallaxMenu : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 velocity;
 
-    // Start is called before the first frame update
     private void Start()
     {
         startPosition = transform.position;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (Camera.main == null)

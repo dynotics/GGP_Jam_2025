@@ -33,6 +33,8 @@ public class MirrorSwap : MonoBehaviour
             if (mirrorCam != null)
             {
                 mirrorCam.enabled = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 player.isFrozen = true;
 
             }
