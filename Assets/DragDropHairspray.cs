@@ -24,7 +24,7 @@ public class DragDropHairspray : MonoBehaviour, IPointerDownHandler, IBeginDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = .6f;
+        canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = false;
 
         animator.SetBool("isSpraying", true);
