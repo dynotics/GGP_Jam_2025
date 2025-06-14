@@ -11,7 +11,20 @@ public class HairCycler : MonoBehaviour
     private int currentIndex = 0;
     private bool canSwitch = true;
 
-    void Update()
+    private void Start()
+    {
+        if (scissorsRect == null)
+            scissorsRect = GameObject.FindWithTag("Scissors")?.GetComponent<RectTransform>();
+
+        if (triggerZone == null)
+            triggerZone = GameObject.FindWithTag("HaircutTrigger")?.GetComponent<RectTransform>();
+
+        foreach (GameObject hair in hairStyles)
+        {
+            hair.SetActive(false);
+        }
+    }
+    private void Update()
     {
         if (RectOverlaps(scissorsRect, triggerZone) && canSwitch)
         {
