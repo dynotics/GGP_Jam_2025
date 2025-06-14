@@ -17,3 +17,10 @@ MonoBehaviour:
   waitingPatienceTime: 100
   seatedPatienceTime: 10
   finishWaitingTime: 1
+  finishText: []
+  failText: []
+  hairStyles:
+  - {fileID: 8308519723962405898, guid: 7907c3a315109fc4c963de6f9f38e415, type: 3}
+  - {fileID: 4583219357831280275, guid: 66246621dc0245a4c9c2a0bbfa94ffa1, type: 3}
+  - {fileID: 5595466068586940456, guid: b13c9557e2bd4844e8112955b0ad60bf, type: 3}
+  - {fileID: 7152872947744751090, guid: 760f785f07183bd4ea574d47e9a19dc6, type: 3}

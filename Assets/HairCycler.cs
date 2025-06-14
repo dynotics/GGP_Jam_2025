@@ -24,6 +24,7 @@ public class HairCycler : MonoBehaviour
         }
     }
 
+
     public void CycleHair()
     {
         if (currentIndex >= 0)
