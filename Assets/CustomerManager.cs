@@ -47,6 +47,20 @@ public class CustomerManager : MonoBehaviour
     {
 
         burstTimer -= Time.deltaTime;
+        if (burstTimer < 0)
+        {
+            int r = Random.Range(0, burstList.Count - 1);
+            StartCoroutine(SpawnCustomers(burstList[r]));
+            burstList.Remove(r);
+
+            if (burstList.Count >= 0)
+            {
+                CreateNewList();
+            }
+
+            burstTimer = timeBetweenBurst - timeDecay * burstAmount;
+            burstAmount++;
+        }
 
         //Debug Salon
         if (Input.GetKeyDown(KeyCode.T))
@@ -61,9 +75,11 @@ public class CustomerManager : MonoBehaviour
 
     public IEnumerator SpawnCustomers(int x)
     {
+        yield return new WaitForSeconds(.1f);
         for (int i = 0; i < x; i++)
         {
-            yield return new WaitForSeconds(.3f);
+            CreateCustomer();
+            yield return new WaitForSeconds(Random.Range(.3f, 1.7f));
         }
     }
 
@@ -149,8 +165,9 @@ public class CustomerManager : MonoBehaviour
         burstList = new List<int>();
         for (int i = 0; i < 3; i++)
         {
-            burstList.Add(1 + i);
+            burstList.Add(i);
             burstList.Add(1 + i);
         }
+        
     }
 }

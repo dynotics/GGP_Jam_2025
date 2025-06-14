@@ -1669,8 +1669,8 @@ MonoBehaviour:
   seatingLocations:
   - {fileID: 859956760}
   customerPrefab: {fileID: 3019558636148651322, guid: 7a752042c7fda834daf66441180e672a, type: 3}
-  timeBetweenBurst: 0
-  timeDecay: 0
+  timeBetweenBurst: 10
+  timeDecay: 0.1
 --- !u!1 &859956758
 GameObject:
   m_ObjectHideFlags: 0
