@@ -11,7 +11,7 @@ public class CustomerManager : MonoBehaviour
     public Transform[] leavingMovementLocations;
 
     public Transform[] waitingLocations;
-    public Transform[] seatingLocations;
+    public MirrorSwap[] seatingLocations;
 
     CustomerObject[] currentSeatedCustomers;
     
@@ -22,6 +22,15 @@ public class CustomerManager : MonoBehaviour
     List<CustomerObject> currentCustomers;
     List<CustomerObject> currentWaitingCustomers;
 
+    [Space(10)]
+
+    public float timeBetweenBurst;
+    public float timeDecay;
+
+    float burstTimer;
+    int burstAmount;
+    List<int> burstList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +38,16 @@ public class CustomerManager : MonoBehaviour
 
         currentCustomers = new List<CustomerObject>();
         currentWaitingCustomers = new List<CustomerObject>();
+
+        CreateNewList();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        burstTimer -= Time.deltaTime;
+
         //Debug Salon
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -42,6 +56,14 @@ public class CustomerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             CreateCustomer();
+        }
+    }
+
+    public IEnumerator SpawnCustomers(int x)
+    {
+        for (int i = 0; i < x; i++)
+        {
+            yield return new WaitForSeconds(.3f);
         }
     }
 
@@ -94,6 +116,7 @@ public class CustomerManager : MonoBehaviour
             if (currentSeatedCustomers[i] == null)
             {
                 customer.SeatCustomer(i);
+                seatingLocations[i].npc = customer;
                 currentSeatedCustomers[i] = customer;
                 return true;
             }
@@ -119,5 +142,15 @@ public class CustomerManager : MonoBehaviour
 
         //Just in case the customer is waiting in the current line
         currentWaitingCustomers.Remove(customer);
+    }
+
+    public void CreateNewList()
+    {
+        burstList = new List<int>();
+        for (int i = 0; i < 3; i++)
+        {
+            burstList.Add(1 + i);
+            burstList.Add(1 + i);
+        }
     }
 }

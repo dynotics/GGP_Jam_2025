@@ -5,7 +5,7 @@ using UnityEngine;
 public class MirrorSwap : MonoBehaviour
 {
     public PlayerMovement player;
-    public Character1Movement npc;
+    public CustomerObject npc;
     public Camera defaultCam;
     public Camera mirrorCam;
 
@@ -20,7 +20,7 @@ public class MirrorSwap : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bool isPlayer = other.tag == "Player";
-        bool npcSeated = npc != null && npc.isSeated;
+        bool npcSeated = npc != null && npc.currentState == CustomerState.Seated;
 
         if (isPlayer && npcSeated)
         {

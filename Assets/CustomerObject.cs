@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public enum CustomerState
@@ -27,6 +28,9 @@ public class CustomerObject : MonoBehaviour
     public CustomerState currentState;
 
     public HairStyle preferredHairStyle;
+
+    public Image patienceBar;
+    public GameObject patienceBarParent;
 
     Vector3 target;
     int targetIndex;
@@ -67,10 +71,12 @@ public class CustomerObject : MonoBehaviour
                     currentState = CustomerState.WaitReception;
 
                     targetIndex = 0;
+                    patienceBarParent.SetActive(true);
                 }
                 break;
             case CustomerState.WaitReception:
                 patienceTimer -= Time.deltaTime;
+                patienceBar.fillAmount = Mathf.Clamp01(patienceTimer / stat.waitingPatienceTime); 
                 if (patienceTimer < 0)
                 {
                     LostAllPatience();
@@ -79,14 +85,17 @@ public class CustomerObject : MonoBehaviour
                 SimpleWalk(manager.WaitingLineSpot(this));
                 break;
             case CustomerState.WalkingSeat:
-                if (SimpleWalk(manager.seatingLocations[seatIndex]))
+                if (SimpleWalk(manager.seatingLocations[seatIndex].transform))
                 {
                     currentState = CustomerState.Seated;
                     patienceTimer = stat.seatedPatienceTime;
+
+                    patienceBarParent.SetActive(true);
                 }
                 break;
             case CustomerState.Seated:
                 patienceTimer -= Time.deltaTime;
+                patienceBar.fillAmount = Mathf.Clamp01(patienceTimer / stat.seatedPatienceTime);
                 if (patienceTimer < 0)
                 {
                     LostAllPatience();
@@ -126,6 +135,8 @@ public class CustomerObject : MonoBehaviour
         targetIndex = 0;
         seatIndex = index;
         currentState = CustomerState.WalkingSeat;
+
+        patienceBarParent.SetActive(false);
     }
 
     public void FinishSalon()
@@ -134,6 +145,8 @@ public class CustomerObject : MonoBehaviour
         manager.RemoveSeat(this);
         waitTimer = stat.finishWaitingTime;
         currentState = CustomerState.Finished;
+
+        patienceBarParent.SetActive(false);
     }
 
     public void DespawnCustomer()
