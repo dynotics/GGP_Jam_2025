@@ -36,6 +36,10 @@ public class CustomerManager : MonoBehaviour
         {
             SeatCustomer();
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            CreateCustomer();
+        }
     }
 
     public void CreateCustomer()
