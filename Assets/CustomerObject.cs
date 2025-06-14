@@ -85,7 +85,7 @@ public class CustomerObject : MonoBehaviour
                 SimpleWalk(manager.WaitingLineSpot(this));
                 break;
             case CustomerState.WalkingSeat:
-                if (SimpleWalk(manager.seatingLocations[seatIndex]))
+                if (SimpleWalk(manager.seatingLocations[seatIndex].transform))
                 {
                     currentState = CustomerState.Seated;
                     patienceTimer = stat.seatedPatienceTime;

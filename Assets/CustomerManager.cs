@@ -11,7 +11,7 @@ public class CustomerManager : MonoBehaviour
     public Transform[] leavingMovementLocations;
 
     public Transform[] waitingLocations;
-    public Transform[] seatingLocations;
+    public MirrorSwap[] seatingLocations;
 
     CustomerObject[] currentSeatedCustomers;
     
@@ -116,6 +116,7 @@ public class CustomerManager : MonoBehaviour
             if (currentSeatedCustomers[i] == null)
             {
                 customer.SeatCustomer(i);
+                seatingLocations[i].npc = customer;
                 currentSeatedCustomers[i] = customer;
                 return true;
             }
