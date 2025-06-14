@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 8912224655863025671}
   m_Layer: 6
   m_Name: HairManager
-  m_TagString: Untagged
+  m_TagString: HairCycler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   - {fileID: 4068534453454694871}
   - {fileID: 8298148734572292160}
   scissorsRect: {fileID: 0}
-  triggerZone: {fileID: 0}
+  trigger: {fileID: 0}
 --- !u!1 &3019558636148651322
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
   patienceBar: {fileID: 3849151605353863517}
   patienceBarParent: {fileID: 1720028022988930853}
   seatIndex: 0
+  hairCycler: {fileID: 0}
 --- !u!1 &4585803665076104484
 GameObject:
   m_ObjectHideFlags: 0

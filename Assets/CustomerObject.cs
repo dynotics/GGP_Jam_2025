@@ -21,6 +21,7 @@ public enum HairStyle
     C
 }
 
+
 public class CustomerObject : MonoBehaviour
 {
     public CustomerStat stat;
@@ -43,10 +44,22 @@ public class CustomerObject : MonoBehaviour
     CustomerManager manager;
     CharacterController controller;
 
+    public HairCycler hairCycler;
+    private MirrorSwap assignedStation;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        if (hairCycler == null)
+        {
+            GameObject hairHandler = GameObject.FindWithTag("HairCycler");
+            if (hairHandler != null && hairHandler.transform.IsChildOf(this.transform)) // only grab it if the tagged object is a child of this client (avoids grabbing another client's hair)
+            {
+                hairCycler = hairHandler.GetComponent<HairCycler>();
+            }
+        }
     }
 
     public void CreateCustomer(CustomerManager cm)
@@ -60,7 +73,6 @@ public class CustomerObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         switch (currentState)
         {
@@ -137,6 +149,16 @@ public class CustomerObject : MonoBehaviour
         currentState = CustomerState.WalkingSeat;
 
         patienceBarParent.SetActive(false);
+
+        CustomerManager cm = manager;
+        assignedStation = cm.seatingLocations[index]; // assign specific customer seating loc
+
+        if (hairCycler != null && assignedStation != null)
+        {
+            hairCycler.trigger = assignedStation.trigger; // assign this station's specific trigger zone to the client's specific hairCycler.
+                                                          // allows for multiple stations with multiple customers
+            hairCycler.scissorsRect = GameObject.FindWithTag("Scissors").GetComponent<RectTransform>();
+        }
     }
 
     public void FinishSalon()

@@ -8,6 +8,7 @@ public class MirrorSwap : MonoBehaviour
     public CustomerObject npc;
     public Camera defaultCam;
     public Camera mirrorCam;
+    public RectTransform trigger;
 
     private void Start()
     {
