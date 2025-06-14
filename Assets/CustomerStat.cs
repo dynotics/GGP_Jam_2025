@@ -12,4 +12,7 @@ public class CustomerStat : ScriptableObject
     public float seatedPatienceTime;
 
     public float finishWaitingTime;
+
+    public string[] finishText;
+    public string[] failText;
 }
