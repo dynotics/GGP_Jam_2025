@@ -24,8 +24,7 @@ public class DragDropScissors : MonoBehaviour, IPointerDownHandler, IBeginDragHa
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
-        canvasGroup.alpha = .6f;
+        canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = false;
 
         animator.SetBool("isCutting", true);
@@ -39,7 +38,6 @@ public class DragDropScissors : MonoBehaviour, IPointerDownHandler, IBeginDragHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
